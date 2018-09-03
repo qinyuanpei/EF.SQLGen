@@ -7,7 +7,15 @@ namespace SQLGen
     {
         static void Main(string[] args)
         {
-            using(var context = new Db())
+            var options = new DbContextOptions<DataContext>()
+            {
+
+            };
+
+            using (var context = new DbContext())
+            {
+
+            }
         }
     }
 }

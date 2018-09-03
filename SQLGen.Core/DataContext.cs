@@ -4,11 +4,11 @@ using System;
 
 namespace SQLGen
 {
-    public class DataContext: DbContext
+    public class DataContext : DbContext
     {
         public virtual DbSet<User> Users { get; set; }
 
-        public DataContext :base("")
+        public DataContext(DbContextOptions<DataContext> options) : base(options)
         {
 
         }
