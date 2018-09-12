@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using SQLGen.Models;
 using System;
 
 namespace SQLGen
@@ -7,14 +8,18 @@ namespace SQLGen
     {
         static void Main(string[] args)
         {
-            var options = new DbContextOptions<DataContext>()
+            var options = new DbContextOptionsBuilder<DbContext>()
+                .UseSqlServer(@"Server=.;Database=Test1;Trusted_Connection=True;")
+                .Options;
+            using (var context = new DbContext(options))
             {
+                context.Set<User>().Add(new User()
+                {
+                    UserName = "PayneQin",
+                    UserRole = "Developer"
+                });
 
-            };
-
-            using (var context = new DbContext())
-            {
-
+                context.SaveChanges();
             }
         }
     }
