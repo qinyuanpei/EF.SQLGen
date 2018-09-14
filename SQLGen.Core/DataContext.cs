@@ -1,4 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
+using NLog.Extensions.Logging;
 using SQLGen.Models;
 using System;
 
@@ -10,7 +12,9 @@ namespace SQLGen
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\admin\Documents\SQLGen.Core.DataContext.mdf;Integrated Security=True;Connect Timeout=30;User Instance=True");
+            optionsBuilder.UseLoggerFactory(new LoggerFactory().AddNLog())
+                .EnableSensitiveDataLogging()
+                .UseSqlServer(@"Data Source=(LocalDb)\MSSQLLocalDB;Initial Catalog=SQLGen.DataContext;Integrated Security=True;MultipleActiveResultSets=True;App=EntityFramework"); 
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
