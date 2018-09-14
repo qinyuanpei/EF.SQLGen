@@ -8,12 +8,9 @@ namespace SQLGen
     {
         static void Main(string[] args)
         {
-            var options = new DbContextOptionsBuilder<DbContext>()
-                .UseSqlServer(@"Server=.;Database=Test1;Trusted_Connection=True;")
-                .Options;
-            using (var context = new DbContext(options))
+            using (var context = new DataContext())
             {
-                context.Set<User>().Add(new User()
+                context.Users.Add(new User()
                 {
                     UserName = "PayneQin",
                     UserRole = "Developer"
