@@ -10,6 +10,9 @@ namespace SQLGen
 {
     public class SQLGenLogger : ILogger
     {
+        private readonly string categoryName;
+        public SQLGenLogger(string categoryName) => this.categoryName = categoryName;
+
         public IDisposable BeginScope<TState>(TState state) => null;
 
         public bool IsEnabled(LogLevel logLevel) => true;
@@ -18,8 +21,8 @@ namespace SQLGen
         {
             //var command = state as DbCommandLogData;
             //if(state is CommandExecuting)
-            
-            Console.WriteLine(typeof(TState));
+            //DbCommandLogData data = state as DbCommandLogData;
+            Console.WriteLine(state);
         }
     }
 
@@ -27,8 +30,8 @@ namespace SQLGen
     {
         public ILogger CreateLogger(string categoryName)
         {
-            if(categoryName  == typeof(IRelationalCommandBuilderFactory).FullName)
-                return new SQLGenLogger();
+            if(categoryName  == "Microsoft.EntityFrameworkCore.Database.Command")
+                return new SQLGenLogger(categoryName);
             return NullLogger.Instance;
         }
 
