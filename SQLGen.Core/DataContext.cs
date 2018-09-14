@@ -12,7 +12,9 @@ namespace SQLGen
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseLoggerFactory(new LoggerFactory().AddNLog())
+            var loggerFactory = new LoggerFactory();
+            loggerFactory.AddProvider(new SQLGenLoggerProvider());
+            optionsBuilder.UseLoggerFactory(loggerFactory)
                 .EnableSensitiveDataLogging()
                 .UseSqlServer(@"Data Source=(LocalDb)\MSSQLLocalDB;Initial Catalog=SQLGen.DataContext;Integrated Security=True;MultipleActiveResultSets=True;App=EntityFramework"); 
         }
