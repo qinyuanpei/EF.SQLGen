@@ -4,7 +4,9 @@ using System.Collections.Generic;
 using System.Text;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
+using Microsoft.Extensions.Logging.Internal;
 using Microsoft.Extensions.Logging.Abstractions;
+
 
 namespace SQLGen
 {
@@ -19,9 +21,7 @@ namespace SQLGen
 
         public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception exception, Func<TState, Exception, string> formatter)
         {
-            //var command = state as DbCommandLogData;
-            //if(state is CommandExecuting)
-            //DbCommandLogData data = state as DbCommandLogData;
+            var command = state as Microsoft.Extensions.Logging.Internal.FormattedLogValues;
             Console.WriteLine(state);
         }
     }
